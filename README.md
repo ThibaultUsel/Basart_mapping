@@ -1,2 +1,2 @@
-# Basart_mapping
-RDF mapping of exhibition data
+# Basart mapping
+RDF mapping of exhibition data using #CIDOC-CRM
