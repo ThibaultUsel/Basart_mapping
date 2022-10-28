@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generator_policy>
+
+<!-- Address -->
+
+<generator name="address" prefix="basart">
+	<pattern>address/{id}</pattern>
+</generator>
+
+<generator name="address_id" prefix="basart">
+	<pattern>address/{id}/id</pattern>
+</generator>
+
+<generator name="address_appellation" prefix="basart">
+	<pattern>address/{id}/appellation</pattern>
+</generator>
+
+<!-- City -->
+
+<generator name="city" prefix="basart">
+	<pattern>city/{id}</pattern>
+</generator>
+
+<generator name="city_id" prefix="basart">
+	<pattern>city/{id}/id</pattern>
+</generator>
+
+<generator name="city_appellation" prefix="basart">
+	<pattern>city/{id}/appellation</pattern>
+</generator>
+
+<!-- Nation -->
+
+<generator name="nation" prefix="basart">
+	<pattern>nation/{id}</pattern>
+</generator>
+
+<generator name="nation_id" prefix="basart">
+	<pattern>nation/{id}/id</pattern>
+</generator>
+
+<generator name="nation_appellation" prefix="basart">
+	<pattern>nation/{id}/appellation</pattern>
+</generator>
+
+<!-- Exhibition -->
+
+<generator name="exhibition" prefix="basart">
+	<pattern>exhibition/{id}</pattern>
+</generator>
+
+<generator name="exhibition_id" prefix="basart">
+	<pattern>exhibition/{id}/id</pattern>
+</generator>
+
+<generator name="exhibition_title" prefix="basart">
+	<pattern>exhibition/{id}/title</pattern>
+</generator>
+
+<generator name="exhibition_reference" prefix="basart">
+	<pattern>exhibition/{id}/ref</pattern>
+</generator>
+
+<generator name="exhibition_time-span" prefix="basart">
+	<pattern>exhibition/{id}/time-span</pattern>
+</generator>
+
+<!-- Sources -->
+
+<generator name="source" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="source"/>
+        <set-arg name="id_HASHED_CONTENTS"/>
+    </custom>
+</generator>
+
+<!-- Exhibition group -->
+
+<generator name="exhibition_group" prefix="basart">
+	<pattern>exhib_group/{id}</pattern>
+</generator>
+
+<!-- Exhibition catalog -->
+
+<generator name="catalogue" prefix="basart">
+	<pattern>catalogue/{id}</pattern>
+</generator>
+
+<!-- General -->
+
+<generator name="URLwithAAT" prefix="aat">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithHomo" prefix="homo">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithWD" prefix="wd">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithVC" prefix="basart">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="dateNormalizerGen">
+	<custom generatorClass="gr.forth.DateNormalizer">
+		<set-arg name="text"/>
+		<set-arg name="bound"/>
+		<set-arg name="report"/>
+	</custom>
+</generator>
+
+<generator name="BMdates">
+        <custom generatorClass="gr.forth.BMdates">
+            <set-arg name="bound" type="constant"/>
+            <set-arg name="text"/>
+        </custom>
+</generator>
+
+<generator name="TypedLiteralGen">
+	<custom generatorClass="gr.forth.TypedLiteralGenerator">
+		<set-arg name="text"/>
+	</custom>
+</generator>
+
+<generator name="URIorUUID">
+	<custom generatorClass="gr.forth.URIorUUID">
+		<set-arg name="text"></set-arg>
+	</custom>
+</generator>
+
+<generator name="simple-uri-gen" prefix="vc" shorten="yes">
+		<pattern>{category}/{id}</pattern>
+</generator>
+
+<generator name="MultiHashingGenerator" prefix="pref">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+		<set-arg name="term"/>
+		<set-arg name="term_HASHED_CONTENTS"/>
+		<set-arg name="term_other"/>
+		<set-arg name="term_RANDOM_UUID"/>
+	</custom>
+</generator>
+
+</generator_policy>

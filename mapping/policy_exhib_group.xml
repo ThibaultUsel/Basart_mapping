@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generator_policy>
+
+<!-- Person -->
+
+<generator name="person" prefix="basart">
+	<pattern>person/{id}</pattern>
+</generator>
+
+<!-- Exhibition group -->
+
+<generator name="exhibition_group" prefix="basart">
+	<pattern>exhib_group/{id}</pattern>
+</generator>
+
+<generator name="exhibition_group_id" prefix="basart">
+	<pattern>exhib_group/{id}/id</pattern>
+</generator>
+
+<generator name="exhibition_group_appellation" prefix="basart">
+	<pattern>exhib_group/{id}/appellation</pattern>
+</generator>
+
+<generator name="exhibition_group_type" prefix="basart">
+	<pattern>group_type/{id}</pattern>
+</generator>
+
+<!-- General -->
+
+<generator name="URLwithAAT" prefix="aat">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithHomo" prefix="homo">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithWD" prefix="wd">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithVC" prefix="basart">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="dateNormalizerGen">
+	<custom generatorClass="gr.forth.DateNormalizer">
+		<set-arg name="text"/>
+		<set-arg name="bound"/>
+		<set-arg name="report"/>
+	</custom>
+</generator>
+
+<generator name="TypedLiteralGen">
+	<custom generatorClass="gr.forth.TypedLiteralGenerator">
+		<set-arg name="text"/>
+	</custom>
+</generator>
+
+<generator name="URIorUUID">
+	<custom generatorClass="gr.forth.URIorUUID">
+		<set-arg name="text"></set-arg>
+	</custom>
+</generator>
+
+<generator name="simple-uri-gen" prefix="vc" shorten="yes">
+		<pattern>{category}/{id}</pattern>
+</generator>
+
+<generator name="MultiHashingGenerator" prefix="pref">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+		<set-arg name="term"/>
+		<set-arg name="term_HASHED_CONTENTS"/>
+		<set-arg name="term_other"/>
+		<set-arg name="term_RANDOM_UUID"/>
+	</custom>
+</generator>
+
+</generator_policy>

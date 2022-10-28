@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generator_policy>
+
+<!-- Person -->
+
+<generator name="person" prefix="basart">
+	<pattern>person/{id}</pattern>
+</generator>
+
+<generator name="unknown_person" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="person"/>
+        <set-arg name="id_HASHED_CONTENTS"/>
+    </custom>
+</generator>
+
+<generator name="unknown_person_id" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="person"/>
+        <set-arg name="id_HASHED_CONTENTS"/>
+        <set-arg name="id_simple_term"/>
+    </custom>
+</generator>
+
+<generator name="unknown_id_content">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="id_HASHED_CONTENTS"/>
+    </custom>
+</generator>
+
+<generator name="unknown_person_appellation" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="person"/>
+        <set-arg name="id_HASHED_CONTENTS"/>
+        <set-arg name="appellation"/>
+    </custom>
+</generator>
+
+<generator name="person_id" prefix="basart">
+	<pattern>person/{id}/id</pattern>
+</generator>
+
+<generator name="person_appellation" prefix="basart">
+	<pattern>person/{id}/appellation</pattern>
+</generator>
+
+<generator name="person_label">
+	<pattern>{first_name} {last_name}</pattern>
+</generator>
+
+<generator name="first_name" prefix="basart">
+	<pattern>person/{id}/appellation/first_name</pattern>
+</generator>
+
+<generator name="last_name" prefix="basart">
+	<pattern>person/{id}/appellation/last_name</pattern>
+</generator>
+
+<!-- Work -->
+
+<generator name="work" prefix="basart">
+	<pattern>work/{id}</pattern>
+</generator>
+
+
+<!-- Sources -->
+
+<generator name="source" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="source"/>
+        <set-arg name="id_HASHED_CONTENTS"/>
+    </custom>
+</generator>
+
+<generator name="source_page" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="source"/>
+		<set-arg name="id_HASHED_CONTENTS"/>
+        <set-arg name="page"/>
+		<set-arg name="page_HASHED_CONTENTS"/>
+	</custom>
+</generator>
+
+<!-- Catalog -->
+
+<generator name="catalogue" prefix="basart">
+	<pattern>catalogue/{id}</pattern>
+</generator>
+
+<!-- Article -->
+
+<generator name="article" prefix="basart">
+	<pattern>article/{id}</pattern>
+</generator>
+
+<generator name="article_id" prefix="basart">
+	<pattern>article/{id}/id</pattern>
+</generator>
+
+<generator name="article_title" prefix="basart">
+	<pattern>article/{id}/title</pattern>
+</generator>
+
+<generator name="article_reference" prefix="basart">
+	<pattern>article/{id}/reference</pattern>
+</generator>
+
+<generator name="article_creation" prefix="basart">
+	<pattern>article/{id}/creation</pattern>
+</generator>
+
+<generator name="article_author" prefix="basart">
+	<pattern>person/art_auth_{id}</pattern>
+</generator>
+
+<generator name="article_author_appellation" prefix="basart">
+	<pattern>person/art_auth_{id}/appellation</pattern>
+</generator>
+
+<generator name="article_language" prefix="basart">
+	<pattern>article/{id}/language</pattern>
+</generator>
+
+<!-- General -->
+
+<generator name="URLwithAAT" prefix="aat">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithHomo" prefix="homo">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithWD" prefix="wd">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithVC" prefix="basart">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="dateNormalizerGen">
+	<custom generatorClass="gr.forth.DateNormalizer">
+		<set-arg name="text"/>
+		<set-arg name="bound"/>
+		<set-arg name="report"/>
+	</custom>
+</generator>
+
+<generator name="TypedLiteralGen">
+	<custom generatorClass="gr.forth.TypedLiteralGenerator">
+		<set-arg name="text"/>
+	</custom>
+</generator>
+
+<generator name="URIorUUID">
+	<custom generatorClass="gr.forth.URIorUUID">
+		<set-arg name="text"></set-arg>
+	</custom>
+</generator>
+
+<generator name="simple-uri-gen" prefix="vc" shorten="yes">
+		<pattern>{category}/{id}</pattern>
+</generator>
+
+<generator name="MultiHashingGenerator" prefix="pref">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+		<set-arg name="term"/>
+		<set-arg name="term_HASHED_CONTENTS"/>
+		<set-arg name="term_other"/>
+		<set-arg name="term_RANDOM_UUID"/>
+	</custom>
+</generator>
+
+</generator_policy>

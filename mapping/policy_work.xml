@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generator_policy>
+
+<!-- Person -->
+
+<generator name="person" prefix="basart">
+	<pattern>person/{id}</pattern>
+</generator>
+
+<!-- Address -->
+
+<generator name="address" prefix="basart">
+	<pattern>address/{id}</pattern>
+</generator>
+
+<!-- City -->
+
+<generator name="city" prefix="basart">
+	<pattern>city/{id}</pattern>
+</generator>
+
+<!-- Nation -->
+
+<generator name="nation" prefix="basart">
+	<pattern>nation/{id}</pattern>
+</generator>
+
+<!-- Work -->
+
+<generator name="work" prefix="basart">
+	<pattern>work/{id}</pattern>
+</generator>
+
+<generator name="work_id" prefix="basart">
+	<pattern>work/{id}/id</pattern>
+</generator>
+
+<generator name="work_title" prefix="basart">
+	<pattern>work/{id}/title</pattern>
+</generator>
+
+<generator name="work_subtitle" prefix="basart">
+	<pattern>work/{id}/subtitle</pattern>
+</generator>
+
+<generator name="work_full_title" prefix="basart">
+	<pattern>work/{id}/fulltitle</pattern>
+</generator>
+
+<generator name="work_full_title_label1">
+	<pattern>{title} : {subtitle}</pattern>
+</generator>
+
+<generator name="work_full_title_label2">
+	<pattern>{title}</pattern>
+</generator>
+
+<generator name="work_full_title_label3">
+	<pattern>{subtitle}</pattern>
+</generator>
+
+<generator name="work_production" prefix="basart">
+	<pattern>work/{id}/production</pattern>
+</generator>
+
+<generator name="work_translation" prefix="basart">
+	<pattern>work/{id}/translated_title</pattern>
+</generator>
+
+<generator name="work_time-span" prefix="basart">
+	<pattern>work/{id}/time-span</pattern>
+</generator>
+
+<generator name="size" prefix="basart" shorten="yes">
+	<pattern>size/{id}</pattern>
+</generator>
+
+<!-- Medium -->
+
+<generator name="work_medium" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="work_medium"/>
+        <set-arg name="id_HASHED_CONTENTS"/>
+    </custom>
+</generator>
+
+<generator name="work_medium_id" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="work_medium"/>
+        <set-arg name="id_HASHED_CONTENTS"/>
+        <set-arg name="id_simple_term"/>
+    </custom>
+</generator>
+
+<generator name="work_medium_appellation" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="work_medium"/>
+        <set-arg name="id_HASHED_CONTENTS"/>
+        <set-arg name="appellation"/>
+    </custom>
+</generator>
+
+<!-- Category -->
+
+<generator name="work_category" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="work_category"/>
+        <set-arg name="id_HASHED_CONTENTS"/>
+    </custom>
+</generator>
+
+<generator name="work_category_id" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="work_category"/>
+        <set-arg name="id_HASHED_CONTENTS"/>
+        <set-arg name="id_simple_term"/>
+    </custom>
+</generator>
+
+<generator name="work_category_appellation" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="work_category"/>
+        <set-arg name="id_HASHED_CONTENTS"/>
+        <set-arg name="appellation"/>
+    </custom>
+</generator>
+
+<!-- Exhibition -->
+
+<generator name="exhibition" prefix="basart">
+	<pattern>exhibition/{id}</pattern>
+</generator>
+
+<!-- Exhibition section -->
+
+<generator name="section" prefix="basart">
+	<pattern>section/{id}</pattern>
+</generator>
+
+<!-- Date and time -->
+
+<generator name="time-span" prefix="basart">
+	<pattern>timespan/{begin}{end}</pattern>
+</generator>
+
+<generator name="begin_yearOnly">
+	<pattern>{year}-01-01T00:00:00</pattern>
+</generator>
+
+<generator name="end_yearOnly">
+	<pattern>{year}-12-31T23:59:59</pattern>
+</generator>
+
+<generator name="completeDate_begin">
+	<pattern>{year}-{month}-{day}T00:00:00</pattern>
+</generator>
+
+<generator name="completeDate_end">
+	<pattern>{year}-{month}-{day}T23:59:59</pattern>
+</generator>
+
+<!-- Exhibition catalog -->
+
+<generator name="catalogue" prefix="basart">
+	<pattern>catalogue/{id}</pattern>
+</generator>
+
+<!-- General -->
+
+<generator name="URLwithAAT" prefix="aat">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithHomo" prefix="homo">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithWD" prefix="wd">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithVC" prefix="basart">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="dateNormalizerGen">
+	<custom generatorClass="gr.forth.DateNormalizer">
+		<set-arg name="text"/>
+		<set-arg name="bound"/>
+		<set-arg name="report"/>
+	</custom>
+</generator>
+
+<generator name="BMdates">
+        <custom generatorClass="gr.forth.BMdates">
+            <set-arg name="bound" type="constant"/>
+            <set-arg name="text"/>
+        </custom>
+</generator>
+
+<generator name="TypedLiteralGen">
+	<custom generatorClass="gr.forth.TypedLiteralGenerator">
+		<set-arg name="text"/>
+	</custom>
+</generator>
+
+<generator name="URIorUUID">
+	<custom generatorClass="gr.forth.URIorUUID">
+		<set-arg name="text"></set-arg>
+	</custom>
+</generator>
+
+<generator name="simple-uri-gen" prefix="vc" shorten="yes">
+		<pattern>{category}/{id}</pattern>
+</generator>
+
+<generator name="MultiHashingGenerator" prefix="pref">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+		<set-arg name="term"/>
+		<set-arg name="term_HASHED_CONTENTS"/>
+		<set-arg name="term_other"/>
+		<set-arg name="term_RANDOM_UUID"/>
+	</custom>
+</generator>
+
+</generator_policy>

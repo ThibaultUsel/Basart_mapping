@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="UTF-8"?><x3ml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd">
+	<namespaces>
+		<namespace prefix="rdfs" uri="http://www.w3.org/2000/01/rdf-schema#"/>
+		<namespace prefix="xsd" uri="http://www.w3.org/2001/XMLSchema#"/>
+		<namespace prefix="crm" uri="http://www.cidoc-crm.org/cidoc-crm/"/>
+		<namespace prefix="crmdig" uri="http://www.ics.forth.gr/isl/CRMext/CRMdig.rdfs/"/>
+		<namespace prefix="gnd" uri="https://d-nb.info/"/>
+		<namespace prefix="ulan" uri="http://vocab.getty.edu/ulan/"/>
+		<namespace prefix="aat" uri="http://vocab.getty.edu/aat/"/>
+		<namespace prefix="wikidata" uri="https://www.wikidata.org/wiki/"/>
+		<namespace prefix="geosparql" uri="http://www.opengis.net/ont/geosparql#"/>
+		<namespace prefix="basart" uri="https://visualcontagions.unige.ch/resources/"/>
+        <namespace prefix="la" uri="https://linked.art/ns/terms/"/>
+	</namespaces>
+
+<mappings>
+    <mapping>
+        <domain> <!-- Works -->
+            <source_node>/data/row</source_node>
+            <target_node>
+                <entity>
+                    <type>crm:E22_Man-Made_Object</type>
+                    <instance_generator name="work">
+                        <arg name="id" type="xpath">id/text()</arg>
+                    </instance_generator>
+                    <additional>
+                        <relationship>crm:P2_has_type</relationship>
+                        <entity>
+                            <type>crm:E55_Type</type>
+                            <instance_info>
+                                <constant>http://vocab.getty.edu/aat/300133025</constant>
+                            </instance_info>
+                            <instance_generator name="URLwithAAT">
+                                <arg name="id" type="constant">300133025</arg>
+                            </instance_generator>
+                        </entity>
+                    </additional>
+                </entity>
+            </target_node>
+        </domain>
+        <link> <!-- ID -->
+            <path>
+                <source_relation>
+                    <relation>id</relation>
+                </source_relation>
+                <target_relation>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E42_Identifier</type>
+                        <instance_generator name="work_id">
+                            <arg name="id" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>id</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="Literal">
+                            <arg name="text" type="xpath">text()</arg>
+                            <arg name="language" type="constant">en</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation title -->
+            <path>
+                <source_relation>
+                    <relation>title</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="work_title">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                        <additional>
+                            <relationship>crm:P2_has_type</relationship>
+                            <entity>
+                                <type>crm:E55_Type</type>
+                                <instance_info>
+                                    <constant>http://vocab.getty.edu/aat/300404670</constant>
+                                </instance_info>
+                                <instance_generator name="URLwithAAT">
+                                    <arg name="id" type="constant">300404670</arg>
+                                </instance_generator>
+                            </entity>
+                        </additional>
+                        <additional>
+                            <relationship>crm:P2_has_type</relationship>
+                            <entity>
+                                <type>crm:E55_Type</type>
+                                <instance_info>
+                                    <constant>http://vocab.getty.edu/aat/300417193</constant>
+                                </instance_info>
+                                <instance_generator name="URLwithAAT">
+                                    <arg name="id" type="constant">300417193</arg>
+                                </instance_generator>
+                            </entity>
+                        </additional>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 title alone</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>title</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="Literal">
+                            <arg name="text" type="xpath">text()</arg>
+                            <arg name="language" type="constant">en</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label -->
+            <path>
+                <source_relation>
+                    <relation>title</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>title alone</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>title</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="Literal">
+                            <arg name="text" type="xpath">text()</arg>
+                            <arg name="language" type="constant">en</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation "full title" -->
+            <path>
+                <source_relation>
+                    <relation>title</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../subtitle/text()</exists>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <type>crm:E33_Linguistic_Object</type>
+                        <instance_generator name="work_full_title">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 fulltitle</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>title</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="work_full_title_label1">
+                            <arg name="title" type="xpath">text()</arg>
+                            <arg name="subtitle" type="xpath">../subtitle/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation "full title" with title alone -->
+            <path>
+                <source_relation>
+                    <relation>title</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../subtitle/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <type>crm:E33_Linguistic_Object</type>
+                        <instance_generator name="work_full_title">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 fulltitle with only title</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>title</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="work_full_title_label2">
+                            <arg name="title" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation "full title" with subtitle alone -->
+            <path>
+                <source_relation>
+                    <relation>subtitle</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../title/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <type>crm:E33_Linguistic_Object</type>
+                        <instance_generator name="work_full_title">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 fulltitle with only subtitle</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>subtitle</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="work_full_title_label3">
+                            <arg name="subtitle" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- link from "full title" to "title" -->
+            <path>
+                <source_relation>
+                    <relation>title</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <type>crm:E33_Linguistic_Object</type>
+                        <instance_generator name="work_full_title">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P106_is_composed_of</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 Title (just to link the Complete_title to the Title)</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>title</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="work_title">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- link from "full title" to "subtitle" -->
+            <path>
+                <source_relation>
+                    <relation>subtitle</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <type>crm:E33_Linguistic_Object</type>
+                        <instance_generator name="work_full_title">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P106_is_composed_of</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="work_subtitle">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                        <additional>
+                            <relationship>crm:P2_has_type</relationship>
+                            <entity>
+                                <type>crm:E55_Type</type>
+                                <instance_info>
+                                    <constant>http://vocab.getty.edu/aat/300312006</constant>
+                                </instance_info>
+                                <instance_generator name="URLwithAAT">
+                                    <arg name="id" type="constant">300312006</arg>
+                                </instance_generator>
+                            </entity>
+                        </additional>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 Subtitle</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>subtitle</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="Literal">
+                            <arg name="text" type="xpath">text()</arg>
+                            <arg name="language" type="constant">en</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- translation title -->
+            <path>
+                <source_relation>
+                    <relation>translation_title</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <type>crm:E33_Linguistic_Object</type>
+                        <instance_generator name="work_full_title">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P73_has_translation</relationship>
+                    <entity>
+                        <type>crm:E33_Linguistic_Object</type>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="work_translation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>translation_title</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="Literal">
+                            <arg name="text" type="xpath">text()</arg>
+                            <arg name="language" type="constant">en</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Author -->
+            <path>
+                <source_relation>
+                    <relation>id_author</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>crm:P108i_was_produced_by</relationship>
+                    <entity>
+                        <type>crm:E12_Production</type>
+                        <instance_generator name="work_production">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P14_carried_out_by</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>id_author</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E39_Actor</type>
+                        <instance_generator name="person">
+                            <arg name="id" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Work Prod Begin date -->
+            <path>
+                <source_relation>
+                    <relation>start_conc_date</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>crm:P108i_was_produced_by</relationship>
+                    <entity>
+                        <type>crm:E12_Production</type>
+                        <instance_generator name="work_production">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P4_has_time-span</relationship>
+                    <entity>
+                        <type>crm:E52_Time-Span</type>
+                        <instance_generator name="work_time-span">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P82a_begin_of_the_begin</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>start_conc_date</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2001/XMLSchema#dateTime</type>
+                        <instance_generator name="BMdates">
+                            <arg name="bound" type="constant">Lower</arg>
+                            <arg name="text" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Work Pord End date -->
+            <path>
+                <source_relation>
+                    <relation>end_conc_date</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>crm:P108i_was_produced_by</relationship>
+                    <entity>
+                        <type>crm:E12_Production</type>
+                        <instance_generator name="work_production">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P4_has_time-span</relationship>
+                    <entity>
+                        <type>crm:E52_Time-Span</type>
+                        <instance_generator name="work_time-span">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P82b_end_of_the_end</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>end_conc_date</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2001/XMLSchema#dateTime</type>
+                        <instance_generator name="BMdates">
+                            <arg name="bound" type="constant">Upper</arg>
+                            <arg name="text" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Work prod address -->
+            <path>
+                <source_relation>
+                    <relation>id_conception_address</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>crm:P108i_was_produced_by</relationship>
+                    <entity>
+                        <type>crm:E12_Production</type>
+                        <instance_generator name="work_production">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P7_took_place_at</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>id_conception_address</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E53_Place</type>
+                        <instance_generator name="address">
+                            <arg name="id" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Work dimension -->
+            <path>
+                <source_relation>
+                    <relation>size</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>crm:P43_has_dimension</relationship>
+                    <entity>
+                        <type>crm:E54_Dimension</type>
+                        <instance_generator name="size">
+                            <arg name="id" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P90_has_value</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>size</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="Literal">
+                            <arg name="text" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Exhibition section -->
+            <path>
+                <source_relation>
+                    <relation>id_section</relation>
+                </source_relation>
+                <target_relation>
+                    <relationship>crm:P16i_was_used_for</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>id_section</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E7_Activity</type>
+                        <instance_generator name="section">
+                            <arg name="id" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Exhibition -->
+            <path>
+                <source_relation>
+                    <relation>id_exhibition</relation>
+                </source_relation>
+                <target_relation>
+                    <relationship>crm:P16i_was_used_for</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>id_exhibition</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E7_Activity</type>
+                        <instance_generator name="exhibition">
+                            <arg name="id" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Catalog -->
+            <path>
+                <source_relation>
+                    <relation>id_catalog</relation>
+                </source_relation>
+                <target_relation>
+                    <relationship>crm:P70i_is_documented_in</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>id_catalog</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E31_Document</type>
+                        <type>crm:E33_Linguistic_Object</type>
+                        <instance_generator name="catalogue">
+                            <arg name="id" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Reproduced in catalog = True -->
+            <path>
+                <source_relation>
+                    <relation>is_reproduced_in_catalog</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <equals value="t">text()</equals>
+                    </if>
+                    <relationship>crm:P2_has_type</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>is_reproduced_in_catalog</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E55_Type</type>
+                        <instance_info>
+                            <constant>https://visualcontagions.unige.ch/resources/image_in_catalog</constant>
+                        </instance_info>
+                        <instance_generator name="URLwithVC">
+                            <arg name="id" type="constant">work_image_in_catalog</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Reproduced in catalog = False -->
+            <path>
+                <source_relation>
+                    <relation>is_reproduced_in_catalog</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <equals value="f">text()</equals>
+                    </if>
+                    <relationship>crm:P2_has_type</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>is_reproduced_in_catalog</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E55_Type</type>
+                        <instance_info>
+                            <constant>https://visualcontagions.unige.ch/resources/no_image_in_catalog</constant>
+                        </instance_info>
+                        <instance_generator name="URLwithVC">
+                            <arg name="id" type="constant">no_work_image_in_catalog</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+    </mapping>
+</mappings>
+
+</x3ml>

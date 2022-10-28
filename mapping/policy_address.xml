@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generator_policy>
+
+<!-- Address -->
+
+<generator name="address" prefix="basart">
+	<pattern>address/{id}</pattern>
+</generator>
+
+<generator name="address_id" prefix="basart">
+	<pattern>address/{id}/id</pattern>
+</generator>
+
+<generator name="address_appellation" prefix="basart">
+	<pattern>address/{id}/appellation</pattern>
+</generator>
+
+<generator name="address_label1">
+	<pattern>{road_num} {road}, floor {floor}, {locality}, {complement}</pattern>
+</generator>
+
+<generator name="address_label2">
+	<pattern>{road}, floor {floor}, {locality}, {complement}</pattern>
+</generator>
+
+<generator name="address_label3">
+	<pattern>{road_num}, floor {floor}, {locality}, {complement}</pattern>
+</generator>
+
+<generator name="address_label4">
+	<pattern>{road_num} {road}, {locality}, {complement}</pattern>
+</generator>
+
+<generator name="address_label5">
+	<pattern>{road_num} {road}, floor {floor}, {complement}</pattern>
+</generator>
+
+<generator name="address_label6">
+	<pattern>{road_num} {road}, floor {floor}, {locality}</pattern>
+</generator>
+
+<generator name="address_label7">
+	<pattern>floor {floor}, {locality}, {complement}</pattern>
+</generator>
+
+<generator name="address_label8">
+	<pattern>{road_num} {road}</pattern>
+</generator>
+
+<generator name="address_label9">
+	<pattern>{road_num} {road}, {complement}</pattern>
+</generator>
+
+<generator name="address_label10">
+	<pattern>{road_num} {road}, {locality}</pattern>
+</generator>
+
+<generator name="address_label11">
+	<pattern>{road_num} {road}, floor {floor}</pattern>
+</generator>
+
+<generator name="address_label12">
+	<pattern>{road}, {locality}, {complement}</pattern>
+</generator>
+
+<generator name="address_label13">
+	<pattern>{road}, floor {floor}, {complement}</pattern>
+</generator>
+
+<generator name="address_label14">
+	<pattern>{road}, floor {floor}, {locality}</pattern>
+</generator>
+
+<generator name="address_label15">
+	<pattern>{road}, {complement}</pattern>
+</generator>
+
+<generator name="address_label16">
+	<pattern>{road}, {locality}</pattern>
+</generator>
+
+<generator name="address_label17">
+	<pattern>{road}, floor {floor}</pattern>
+</generator>
+
+<generator name="address_label18">
+	<pattern>{road_num}, {locality}, {complement}</pattern>
+</generator>
+
+<generator name="address_label19">
+	<pattern>{road_num}, floor {floor}, {complement}</pattern>
+</generator>
+
+<generator name="address_label20">
+	<pattern>{road_num}, floor {floor}, {locality}</pattern>
+</generator>
+
+<generator name="address_label21">
+	<pattern>{road_num}, {complement}</pattern>
+</generator>
+
+<generator name="address_label22">
+	<pattern>{road_num}, {locality}</pattern>
+</generator>
+
+<generator name="address_label23">
+	<pattern>{road_num}, floor {floor}</pattern>
+</generator>
+
+<generator name="address_label24">
+	<pattern>{locality}, {complement}</pattern>
+</generator>
+
+<generator name="address_label25">
+	<pattern>floor {floor}, {complement}</pattern>
+</generator>
+
+<generator name="address_label26">
+	<pattern>floor {floor}, {locality}</pattern>
+</generator>
+
+<generator name="address_label27">
+	<pattern>no available address</pattern>
+</generator>
+
+<generator name="address_label28">
+	<pattern>{road_num}</pattern>
+</generator>
+
+<generator name="address_label29">
+	<pattern>{road}</pattern>
+</generator>
+
+<generator name="address_label30">
+	<pattern>floor {floor}</pattern>
+</generator>
+
+<generator name="address_label31">
+	<pattern>{locality}</pattern>
+</generator>
+
+<generator name="address_label32">
+	<pattern>{complement}</pattern>
+</generator>
+
+<!-- City -->
+
+<generator name="city" prefix="basart">
+	<pattern>city/{id}</pattern>
+</generator>
+
+<!-- General -->
+
+<generator name="URLwithAAT" prefix="aat">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithHomo" prefix="homo">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithWD" prefix="wd">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithVC" prefix="basart">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="dateNormalizerGen">
+	<custom generatorClass="gr.forth.DateNormalizer">
+		<set-arg name="text"/>
+		<set-arg name="bound"/>
+		<set-arg name="report"/>
+	</custom>
+</generator>
+
+<generator name="TypedLiteralGen">
+	<custom generatorClass="gr.forth.TypedLiteralGenerator">
+		<set-arg name="text"/>
+	</custom>
+</generator>
+
+<generator name="URIorUUID">
+	<custom generatorClass="gr.forth.URIorUUID">
+		<set-arg name="text"></set-arg>
+	</custom>
+</generator>
+
+<generator name="simple-uri-gen" prefix="vc" shorten="yes">
+		<pattern>{category}/{id}</pattern>
+</generator>
+
+<generator name="MultiHashingGenerator" prefix="pref">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+		<set-arg name="term"/>
+		<set-arg name="term_HASHED_CONTENTS"/>
+		<set-arg name="term_other"/>
+		<set-arg name="term_RANDOM_UUID"/>
+	</custom>
+</generator>
+
+<generator name="BMdates">
+        <custom generatorClass="gr.forth.BMdates">
+            <set-arg name="bound" type="constant"/>
+            <set-arg name="text"/>
+        </custom>
+</generator>
+
+</generator_policy>

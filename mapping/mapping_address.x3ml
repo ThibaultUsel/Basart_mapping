@@ -1,0 +1,4152 @@
+<?xml version="1.0" encoding="UTF-8"?><x3ml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd">
+	<namespaces>
+		<namespace prefix="rdfs" uri="http://www.w3.org/2000/01/rdf-schema#"/>
+		<namespace prefix="xsd" uri="http://www.w3.org/2001/XMLSchema#"/>
+		<namespace prefix="crm" uri="http://www.cidoc-crm.org/cidoc-crm/"/>
+		<namespace prefix="crmdig" uri="http://www.ics.forth.gr/isl/CRMext/CRMdig.rdfs/"/>
+		<namespace prefix="gnd" uri="https://d-nb.info/"/>
+		<namespace prefix="ulan" uri="http://vocab.getty.edu/ulan/"/>
+		<namespace prefix="aat" uri="http://vocab.getty.edu/aat/"/>
+		<namespace prefix="wikidata" uri="https://www.wikidata.org/wiki/"/>
+		<namespace prefix="geosparql" uri="http://www.opengis.net/ont/geosparql#"/>
+		<namespace prefix="basart" uri="https://visualcontagions.unige.ch/resources/"/>
+	</namespaces>
+
+<mappings>
+    <mapping>
+        <domain> <!-- Address -->
+            <source_node>/data/row</source_node>
+            <target_node>
+                <entity>
+                    <type>crm:E53_Place</type>
+                    <instance_generator name="address">
+                        <arg name="id" type="xpath">id/text()</arg>
+                    </instance_generator>
+                    <additional>
+                        <relationship>crm:P2_has_type</relationship>
+                        <entity>
+                            <type>crm:E55_Type</type>
+                            <instance_info>
+                                <constant>http://vocab.getty.edu/aat/300386983</constant>
+                            </instance_info>
+                            <instance_generator name="URLwithAAT">
+                                <arg name="id" type="constant">300386983</arg>
+                            </instance_generator>
+                        </entity>
+                    </additional>
+                </entity>
+            </target_node>
+        </domain>
+        <link> <!-- ID -->
+            <path>
+                <source_relation>
+                    <relation>id</relation>
+                </source_relation>
+                <target_relation>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E42_Identifier</type>
+                        <instance_generator name="address_id">
+                            <arg name="id" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>id</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="Literal">
+                            <arg name="text" type="xpath">text()</arg>
+                            <arg name="language" type="constant">en</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- position WKT -->
+            <path>
+                <source_relation>
+                    <relation>position</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>crm:P168_place_is_defined_by</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>position</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="Literal">
+                            <arg name="text" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 1 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label1</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label1">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 1 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label1">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 2 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label2</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label2">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 2 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label2">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 3 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label3</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label3">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 3 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label3">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 4-->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label4</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label4">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 4-->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label4">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 5 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label5</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label5">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                            
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 5 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label5">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                            
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 6 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label6</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label6">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 6 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label6">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 7 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label7</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label7">
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 7 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label7">
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 8 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label8</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label8">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 8 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label8">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 9 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label9</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label9">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 9 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label9">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 10 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label10</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label10">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 10 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label10">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 11 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label11</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label11">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 11 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label11">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 12 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label12</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label12">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 12 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label12">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 13 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label13</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label13">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 13 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label13">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 14 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label14</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label14">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 14 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label14">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 15 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <and>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../floor/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../locality/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                </and>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label15</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label15">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 15 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <and>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../floor/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../locality/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                </and>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label15">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 16 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label16</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label16">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 16 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label16">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 17 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label17</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label17">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 17 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <exists>../road/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label17">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 18 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label18</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label18">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 18 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label18">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 19 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label19</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label19">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 19 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label19">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 20 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label20</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label20">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 20 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label20">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 21 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label21</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label21">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 21 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label21">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 22 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label22</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label22">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 22 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label22">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 23 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label23</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label23">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 23 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label23">
+                            <arg name="road_num" type="xpath">text()</arg>
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 24 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label24</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label24">
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 24 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label24">
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 25 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label25</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label25">
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 25 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label25">
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 26 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label26</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label26">
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 26 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>../floor/text()</exists>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label26">
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 27 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <and>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../locality/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../complement/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                </and>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label27</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                        <additional>
+                            <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                            <entity>
+                                <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                                <instance_info>
+                                    <constant>no available address</constant>
+                                </instance_info>
+                                <instance_generator name="Literal">
+                                    <arg name="text" type="constant">no available address</arg>
+                                    <arg name="language" type="constant">en</arg>
+                                </instance_generator>
+                            </entity>
+                        </additional>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 27 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <and>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../locality/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../complement/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                </and>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_info>
+                            <constant>no available address</constant>
+                        </instance_info>
+                        <instance_generator name="Literal">
+                            <arg name="text" type="constant">no available address</arg>
+                            <arg name="language" type="constant">en</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 28 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <and>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../locality/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../complement/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </and>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label28</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label28">
+                            <arg name="road_num" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 28 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <and>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../locality/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../complement/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </and>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label28">
+                            <arg name="road_num" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 29 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <and>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../locality/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../complement/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </and>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label29</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label29">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 29 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <and>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../locality/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../complement/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </and>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label29">
+                            <arg name="road" type="xpath">../road/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 30 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <and>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../locality/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../complement/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </and>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label30</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label30">
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 30 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <and>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../locality/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <not>
+                                            <if>
+                                                <exists>../complement/text()</exists>
+                                            </if>
+                                        </not>
+                                    </if>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </and>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label30">
+                            <arg name="floor" type="xpath">../floor/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 31 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label31</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label31">
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 31 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../complement/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <exists>../locality/text()</exists>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label31">
+                            <arg name="locality" type="xpath">../locality/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Appellation 32 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="address_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190 address_label32</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label32">
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Label 32 -->
+            <path>
+                <source_relation>
+                    <relation>road_num</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../road/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../floor/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../locality/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                            <if>
+                                <exists>../complement/text()</exists>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>road_num</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="address_label32">
+                            <arg name="complement" type="xpath">../complement/text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- City -->
+            <path>
+                <source_relation>
+                    <relation>id_city</relation>
+                </source_relation>
+                <target_relation>
+                    <relationship>crm:P89_falls_within</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>id_city</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E53_Place</type>
+                        <instance_generator name="city">
+                            <arg name="id" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+    </mapping>
+</mappings>
+</x3ml>

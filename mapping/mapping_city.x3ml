@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?><x3ml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" source_type="xpath" version="1.0" xsi:noNamespaceSchemaLocation="x3ml_v1.0.xsd">
+	<namespaces>
+		<namespace prefix="rdfs" uri="http://www.w3.org/2000/01/rdf-schema#"/>
+		<namespace prefix="xsd" uri="http://www.w3.org/2001/XMLSchema#"/>
+		<namespace prefix="crm" uri="http://www.cidoc-crm.org/cidoc-crm/"/>
+		<namespace prefix="crmdig" uri="http://www.ics.forth.gr/isl/CRMext/CRMdig.rdfs/"/>
+		<namespace prefix="gnd" uri="https://d-nb.info/"/>
+		<namespace prefix="ulan" uri="http://vocab.getty.edu/ulan/"/>
+		<namespace prefix="aat" uri="http://vocab.getty.edu/aat/"/>
+		<namespace prefix="wikidata" uri="https://www.wikidata.org/wiki/"/>
+		<namespace prefix="geosparql" uri="http://www.opengis.net/ont/geosparql#"/>
+		<namespace prefix="basart" uri="https://visualcontagions.unige.ch/resources/"/>
+        <namespace prefix="wd" uri="https://www.wikidata.org/wiki/"/>
+	</namespaces>
+
+<mappings>
+    <mapping>
+        <domain>
+            <source_node>/data/row</source_node>
+            <target_node>
+                <entity>
+                    <type>crm:E53_Place</type>
+                    <instance_generator name="city">
+                        <arg name="id" type="xpath">id/text()</arg>
+                    </instance_generator>
+                    <additional>
+                        <relationship>crm:P2_has_type</relationship>
+                        <entity>
+                            <type>crm:E55_Type</type>
+                            <instance_info>
+                                <constant>http://vocab.getty.edu/aat/300008389</constant>
+                            </instance_info>
+                            <instance_generator name="URLwithAAT">
+                                <arg name="id" type="constant">300008389</arg>
+                            </instance_generator>
+                        </entity>
+                    </additional>
+                </entity>
+            </target_node>
+        </domain>
+        <link>
+            <path>
+                <source_relation>
+                    <relation>id</relation>
+                </source_relation>
+                <target_relation>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E42_Identifier</type>
+                        <instance_generator name="city_id">
+                            <arg name="id" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>id</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="Literal">
+                            <arg name="text" type="xpath">text()</arg>
+                            <arg name="language" type="constant">en</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link>
+            <path>
+                <source_relation>
+                    <relation>wd_identifier</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>crmdig:L54_is_same-as</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>wd_identifier</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E53_Place</type>
+                        <instance_generator name="URLwithWD">
+                            <arg name="id" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link>
+            <path>
+                <source_relation>
+                    <relation>position</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>crm:P168_place_is_defined_by</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>position</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="Literal">
+                            <arg name="text" type="xpath">text()</arg>
+                            <arg name="language" type="constant">en</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link>
+            <path>
+                <source_relation>
+                    <relation>name</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>crm:P1_is_identified_by</relationship>
+                    <entity>
+                        <type>crm:E41_Appellation</type>
+                        <instance_generator name="city_appellation">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P190_has_symbolic_content</relationship>
+                </target_relation>
+                <comments>
+                    <comment type="">
+                        <rationale>P190</rationale>
+                        <alternatives/>
+                        <typical_mistakes/>
+                        <local_habits/>
+                        <link_to_cook_book/>
+                        <example>
+                            <example_source/>
+                            <example_target/>
+                        </example>
+                        <comments_last_update date="" person=""/>
+                    </comment>
+                </comments>
+            </path>
+            <range>
+                <source_node>name</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="Literal">
+                            <arg name="text" type="xpath">text()</arg>
+                            <arg name="language" type="constant">en</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link>
+            <path>
+                <source_relation>
+                    <relation>name</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <exists>text()</exists>
+                    </if>
+                    <relationship>http://www.w3.org/2000/01/rdf-schema#label</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>name</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
+                        <instance_generator name="Literal">
+                            <arg name="text" type="xpath">text()</arg>
+                            <arg name="language" type="constant">en</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link>
+            <path>
+                <source_relation>
+                    <relation>id_country</relation>
+                </source_relation>
+                <target_relation>
+                    <relationship>crm:P89_falls_within</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>id_country</source_node>
+                <target_node>
+                    <entity>
+                        <type>crm:E53_Place</type>
+                        <instance_generator name="nation">
+                            <arg name="id" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+    </mapping>
+</mappings>
+
+</x3ml>

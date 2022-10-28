@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<generator_policy>
+
+<!-- Address -->
+
+<generator name="address" prefix="basart">
+	<pattern>address/{id}</pattern>
+</generator>
+
+<generator name="address_id" prefix="basart">
+	<pattern>address/{id}/id</pattern>
+</generator>
+
+<generator name="address_appellation" prefix="basart">
+	<pattern>address/{id}/appellation</pattern>
+</generator>
+
+<generator name="address_complement" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="address"/>
+        <set-arg name="id_HASHED_CONTENTS"/>
+    </custom>
+</generator>
+
+<generator name="address_complement_id" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="address"/>
+        <set-arg name="id_HASHED_CONTENTS"/>
+		<set-arg name="id_simple_term"/>
+    </custom>
+</generator>
+
+<generator name="address_complement_appellation" prefix="basart">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+        <set-arg name="address"/>
+        <set-arg name="id_HASHED_CONTENTS"/>
+		<set-arg name="appellation"/>
+    </custom>
+</generator>
+
+<!-- City -->
+
+<generator name="city" prefix="basart">
+	<pattern>city/{id}</pattern>
+</generator>
+
+<generator name="city_id" prefix="basart">
+	<pattern>city/{id}/id</pattern>
+</generator>
+
+<generator name="city_appellation" prefix="basart">
+	<pattern>city/{id}/appellation</pattern>
+</generator>
+
+<!-- Nation -->
+
+<generator name="nation" prefix="basart">
+	<pattern>nation/{id}</pattern>
+</generator>
+
+<generator name="nation_id" prefix="basart">
+	<pattern>nation/{id}/id</pattern>
+</generator>
+
+<generator name="nation_appellation" prefix="basart">
+	<pattern>nation/{id}/appellation</pattern>
+</generator>
+
+<!-- Exhibition -->
+
+<generator name="exhibition" prefix="basart">
+	<pattern>exhibition/{id}</pattern>
+</generator>
+
+<!-- Exhibition section -->
+
+<generator name="section" prefix="basart">
+	<pattern>section/{id}</pattern>
+</generator>
+
+<generator name="section_id" prefix="basart">
+	<pattern>section/{id}/id</pattern>
+</generator>
+
+<generator name="section_appellation" prefix="basart">
+	<pattern>section/{id}/appellation</pattern>
+</generator>
+
+<generator name="section_appellation_label_both">
+	<pattern>{title}, {space}</pattern>
+</generator>
+
+<generator name="space_type" prefix="basart">
+	<pattern>space_type/{id}</pattern>
+</generator>
+
+<!-- Catalog -->
+
+<generator name="catalogue" prefix="basart">
+	<pattern>catalogue/{id}</pattern>
+</generator>
+
+<!-- Committee -->
+
+<generator name="committee" prefix="basart">
+	<pattern>committee/{id}</pattern>
+</generator>
+
+<!-- General -->
+
+<generator name="URLwithAAT" prefix="aat">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithHomo" prefix="homo">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithWD" prefix="wd">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="URLwithVC" prefix="basart">
+	<pattern>{id}</pattern>
+</generator>
+
+<generator name="dateNormalizerGen">
+	<custom generatorClass="gr.forth.DateNormalizer">
+		<set-arg name="text"/>
+		<set-arg name="bound"/>
+		<set-arg name="report"/>
+	</custom>
+</generator>
+
+<generator name="TypedLiteralGen">
+	<custom generatorClass="gr.forth.TypedLiteralGenerator">
+		<set-arg name="text"/>
+	</custom>
+</generator>
+
+<generator name="URIorUUID">
+	<custom generatorClass="gr.forth.URIorUUID">
+		<set-arg name="text"></set-arg>
+	</custom>
+</generator>
+
+<generator name="simple-uri-gen" prefix="vc" shorten="yes">
+		<pattern>{category}/{id}</pattern>
+</generator>
+
+<generator name="MultiHashingGenerator" prefix="pref">
+	<custom generatorClass="gr.forth.MultiHashingGenerator">
+		<set-arg name="term"/>
+		<set-arg name="term_HASHED_CONTENTS"/>
+		<set-arg name="term_other"/>
+		<set-arg name="term_RANDOM_UUID"/>
+	</custom>
+</generator>
+
+</generator_policy>
