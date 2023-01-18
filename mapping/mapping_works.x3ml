@@ -556,14 +556,141 @@
                 </target_node>
             </range>
         </link>
-        <link> <!-- Work Prod Begin date -->
+        <link> <!-- Work Prod Begin date alone -->
             <path>
                 <source_relation>
                     <relation>start_conc_date</relation>
                 </source_relation>
                 <target_relation>
                     <if>
-                        <exists>text()</exists>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../end_conc_date/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P108i_was_produced_by</relationship>
+                    <entity>
+                        <type>crm:E12_Production</type>
+                        <instance_generator name="work_production">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P4_has_time-span</relationship>
+                    <entity>
+                        <type>crm:E52_Time-Span</type>
+                        <instance_generator name="work_time-span">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                        <additional>
+                            <relationship>crm:P82b_end_of_the_end</relationship>
+                            <entity>
+                                <type>http://www.w3.org/2001/XMLSchema#dateTime</type>
+                                <instance_generator name="BMdates">
+                                    <arg name="bound" type="constant">Upper</arg>
+                                    <arg name="text" type="xpath">text()</arg>
+                                </instance_generator>
+                            </entity>
+                        </additional>
+                    </entity>
+                    <relationship>crm:P82a_begin_of_the_begin</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>start_conc_date</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2001/XMLSchema#dateTime</type>
+                        <instance_generator name="BMdates">
+                            <arg name="bound" type="constant">Lower</arg>
+                            <arg name="text" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Work Prod End date alone -->
+            <path>
+                <source_relation>
+                    <relation>end_conc_date</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <not>
+                                    <if>
+                                        <exists>../start_conc_date/text()</exists>
+                                    </if>
+                                </not>
+                            </if>
+                        </and>
+                    </if>
+                    <relationship>crm:P108i_was_produced_by</relationship>
+                    <entity>
+                        <type>crm:E12_Production</type>
+                        <instance_generator name="work_production">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                    </entity>
+                    <relationship>crm:P4_has_time-span</relationship>
+                    <entity>
+                        <type>crm:E52_Time-Span</type>
+                        <instance_generator name="work_time-span">
+                            <arg name="id" type="xpath">../id/text()</arg>
+                        </instance_generator>
+                        <additional>
+                            <relationship>crm:P82a_begin_of_the_begin</relationship>
+                            <entity>
+                                <type>http://www.w3.org/2001/XMLSchema#dateTime</type>
+                                <instance_generator name="BMdates">
+                                    <arg name="bound" type="constant">Lower</arg>
+                                    <arg name="text" type="xpath">text()</arg>
+                                </instance_generator>
+                            </entity>
+                        </additional>
+                    </entity>
+                    <relationship>crm:P82b_end_of_the_end</relationship>
+                </target_relation>
+            </path>
+            <range>
+                <source_node>end_conc_date</source_node>
+                <target_node>
+                    <entity>
+                        <type>http://www.w3.org/2001/XMLSchema#dateTime</type>
+                        <instance_generator name="BMdates">
+                            <arg name="bound" type="constant">Upper</arg>
+                            <arg name="text" type="xpath">text()</arg>
+                        </instance_generator>
+                    </entity>
+                </target_node>
+            </range>
+        </link>
+        <link> <!-- Work Prod Begin date with end date -->
+            <path>
+                <source_relation>
+                    <relation>start_conc_date</relation>
+                </source_relation>
+                <target_relation>
+                    <if>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../end_conc_date/text()</exists>
+                            </if>
+                        </and>
                     </if>
                     <relationship>crm:P108i_was_produced_by</relationship>
                     <entity>
@@ -595,14 +722,21 @@
                 </target_node>
             </range>
         </link>
-        <link> <!-- Work Pord End date -->
+        <link> <!-- Work Prod End date with begin date -->
             <path>
                 <source_relation>
                     <relation>end_conc_date</relation>
                 </source_relation>
                 <target_relation>
                     <if>
-                        <exists>text()</exists>
+                        <and>
+                            <if>
+                                <exists>text()</exists>
+                            </if>
+                            <if>
+                                <exists>../start_conc_date/text()</exists>
+                            </if>
+                        </and>
                     </if>
                     <relationship>crm:P108i_was_produced_by</relationship>
                     <entity>

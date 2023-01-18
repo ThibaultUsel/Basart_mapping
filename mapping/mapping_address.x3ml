@@ -80,10 +80,10 @@
                 </target_node>
             </range>
         </link>
-        <link> <!-- position WKT -->
+        <link> <!-- WKT -->
             <path>
                 <source_relation>
-                    <relation>position</relation>
+                    <relation>wkt</relation>
                 </source_relation>
                 <target_relation>
                     <if>
@@ -93,11 +93,11 @@
                 </target_relation>
             </path>
             <range>
-                <source_node>position</source_node>
+                <source_node>wkt</source_node>
                 <target_node>
                     <entity>
-                        <type>http://www.w3.org/2000/01/rdf-schema#Literal</type>
-                        <instance_generator name="Literal">
+                        <type>geosparql:wktLiteral</type>
+                        <instance_generator name="TypedLiteralGen">
                             <arg name="text" type="xpath">text()</arg>
                         </instance_generator>
                     </entity>
